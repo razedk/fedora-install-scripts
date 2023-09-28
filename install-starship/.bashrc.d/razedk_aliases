@@ -8,7 +8,8 @@ alias podbash='function _() { podman exec -it $1 /bin/bash; }; _'
 
 # Commands
 alias edit='gnome-text-editor'
-alias dir='sudo ls -lah --group-directories-first'
+alias dir='ls -lah --group-directories-first'
+alias sdir='sudo ls -lah --group-directories-first'
 alias cls='clear'
 alias show-grub-entries="sudo awk -F\\' '{ gsub(/^[ \t]+/,\"\", \$1); if (\$1 ==\"menuentry \") {print \$2 }}' /boot/grub2/grub.cfg"
 alias whatismyip="hostname -I"
@@ -57,11 +58,17 @@ alias 755='chmod -R 755'
 alias 777='chmod -R 777'
 
 # Search command line history
-alias h="history | grep "
+alias h="history"
+alias hg="history | grep "
 
 # Search running processes
 alias p="ps aux | grep "
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
+
+# Show running services
+alias ss-running="systemctl --type=service --state=running"
+alias ss-running="systemctl --type=service --state=failed"
+alias ss-all="systemctl --type=service"
 
 # Search files in the current folder
 alias f="find . | grep "
