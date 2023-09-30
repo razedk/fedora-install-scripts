@@ -6,22 +6,12 @@
 # NOTE: Script is made for Fedora and might not work on other distributions
 #
 
+source util/print-util.sh
+source util/file-util.sh
 
 #
 # F U N C T I O N S   S E C T I O N
 #
-
-# Create app folder if it does not already exist
-create_directory_if_not_exists() {
-    local dir="$1"
-    
-    if [ ! -d "$dir" ]; then
-        mkdir -p "$dir"
-        echo "Directory '$dir' created."
-    else
-        echo "Directory '$dir' already exists."
-    fi
-}
 
 # Download pcloud, when download is started the pcloud file will have a size of 0 until download is completed
 download_pcloud() {
@@ -41,16 +31,16 @@ download_pcloud() {
     while true; do
         if [ -e "$file_to_download" ]; then
 	    if [ -s "$file_to_download" ]; then
-	        echo "File '$file_to_download' has been successfully downloaded"
+	        print_ok "File '$file_to_download' has been successfully downloaded"
 	        # File has been completely downloaded, we can kill headless firefox
 	        pkill firefox > /dev/null 2>&1
 	        break
 	    else
-                echo "File '$file_to_download' is still being downloaded"
+                print_info "File '$file_to_download' is still being downloaded"
                 eval "ls -laFh --color=always $file_to_download*"
 	    fi
         else
-           echo "Still waiting for download to start of file '$file_to_download'"
+           print_info "Still waiting for download to start of file '$file_to_download'"
         fi
         # Just to avoid being spammed with progress info
         sleep 5
@@ -71,7 +61,7 @@ FILE_DOWNLOAD_NAME="pcloud"
 FILE_COMPLETE_NAME="$FILE_DOWNLOAD_PATH$FILE_DOWNLOAD_NAME"
 
 # Create bin folder if not already exist
-create_directory_if_not_exists $APP_PATH
+file_util_create_dir $APP_PATH
 
 # Download pcloud app (delete any previous downloads)
 eval "rm $FILE_COMPLETE_NAME*"
@@ -83,9 +73,9 @@ fi
 
 if [ -e "$APP_PATH$FILE_DOWNLOAD_NAME" ]; then
     chmod 700 $APP_PATH$FILE_DOWNLOAD_NAME
-    echo "Install of pcloud has completed"
+    print_ok "Install of pcloud has completed"
 else 
-    echo "Install of pcloud has failed"
+    print_error "Install of pcloud has failed"
 fi
 
 
