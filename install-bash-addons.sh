@@ -38,7 +38,7 @@ installStarship(){
 
 installConfig() {
     ## Create target directories if not already exist
-    INSTALL_PATH="install-starship"
+    INSTALL_PATH="install-bash-addons"
     BASHRC_DIR="${HOME}/.bashrc.d"
     CONFIG_DIR="${HOME}/.config/"
     
@@ -50,6 +50,10 @@ installConfig() {
     cp ${INSTALL_PATH}/starship.toml ${CONFIG_DIR}/
 }
 
+installNerdFonts() {
+  echo "TODO"
+}
+
 
 #
 # M A I N   S E C T I O N
@@ -58,6 +62,7 @@ installConfig() {
 installDepend
 installStarship
 installConfig
+installNerdFonts
 
 print_ok "Done!\nrestart your shell to see the changes."
 
