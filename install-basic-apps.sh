@@ -19,23 +19,48 @@ install_dnf_repos() {
 
 install_dnf_packages() {
     print_info "Installing DNF packages"
-    sudo dnf install -y gnome-tweaks dconf-editor vlc wine meld qbittorrent
+    sudo dnf groupinstall -y 	"Development Tools"    				
+
+    sudo dnf install -y 	gnome-tweaks \
+    				dconf-editor \
+    				vlc \
+    				wine \
+    				meld \
+    				qbittorrent \
+    				qemu \
+    				virt-manager \
+    				rapidsvn
+    				
     print_info "Finished installing DNF packages"
 }
 
 install_flatpak_repos() {
-    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    # From Fedora 39 flathub is already included
+    #flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    print_info "No repos to install, moving on..." 
 }
 
 install_flatpak_packages() {
     # Fedora flatpaks
-    flatpak install fedora
+    # flatpak install fedora
     
     # Flathub flatpaks
-    flatpak install flathub "Adobe Reader" Opera teams-for-linux "Desktop Files Creator" "WhatsApp for Linux"
-    
-    # Devel
-    # GitKraken, Postman, Git Cola  
+    flatpak install flathub -y	org.keepassxc.KeePassXC \
+				com.adobe.Reader \
+				com.github.dail8859.NotepadNext \
+				com.mattjakeman.ExtensionManager \
+				com.opera.Opera \
+				com.github.IsmaelMartinez.teams_for_linux \
+				io.github.mimbrero.WhatsAppDesktop \
+				com.skype.Client \
+				com.github.alexkdeveloper.desktop-files-creator \
+				com.jgraph.drawio.desktop \
+				com.axosoft.GitKraken \
+				com.gitfiend.GitFiend \
+				com.github.git_cola.git-cola \
+				com.jetbrains.IntelliJ-IDEA-Community \
+				org.eclipse.Java \
+				com.visualstudio.code
 }
 
 

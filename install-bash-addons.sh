@@ -51,9 +51,20 @@ installConfig() {
 }
 
 installNerdFonts() {
-  echo "TODO"
-}
+	FONT_SOURCE_DIR="${HOME}/pCloudDrive/Backup/Linux/fonts"
+	FONT_TARGET_DIR="${HOME}/.local/share/fonts"
+	FILE_EXT=".zip"
 
+    for file in $FONT_SOURCE_DIR/*$FILE_EXT ;
+    do
+		font_folder_name=$(basename $file $FILE_EXT)
+		print_info "Path=${file}, FontFolder=${font_folder_name}"
+  	    file_util_delete_create_dir ${FONT_TARGET_DIR}/${font_folder_name}
+		unzip -d ${FONT_TARGET_DIR}/${font_folder_name} $file
+    done
+	
+	fc-cache -fv
+}
 
 #
 # M A I N   S E C T I O N
