@@ -29,7 +29,8 @@ install_dnf_packages() {
     				qbittorrent \
     				qemu \
     				virt-manager \
-    				rapidsvn
+    				rapidsvn \
+    				git-credential-libsecret
     				
     print_info "Finished installing DNF packages"
 }
