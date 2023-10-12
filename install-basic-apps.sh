@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-# This scripts install basic apps from fedora, rpmfusion and flathub
+# This script install basic apps from fedora, rpmfusion and flathub
 #
 # NOTE: Script is made for Fedora and might not work on other distributions
 #

@@ -1,11 +1,12 @@
 #!/bin/bash
 
 #
-# This scripts downloads and install display link drivers (evdi)
+# This script downloads and install display link drivers (evdi)
 #
 # NOTE: Script is made for Fedora and might not work on other distributions
 #
 
+source config/common-config.sh
 source util/print-util.sh
 source util/secure-boot-util.sh
 source util/dkms-util.sh
@@ -13,16 +14,6 @@ source util/dkms-util.sh
 #
 # F U N C T I O N S   S E C T I O N
 #
-
-# Download rpm
-download_rpm() {
-    local download_folder="$1"
-    local download_url="$2"
-    
-    # Download rpm to specified download folder
-    cd $download_folder 
-    wget $download_url
-}
 
 # Handle secure boot
 enroll_dkms_key() {
@@ -49,14 +40,13 @@ enroll_dkms_key() {
 
 
 # Specify the file you want to monitor
-DOWNLOAD_PATH="$HOME/Downloads/"
 DOWNLOAD_FILE_NAME="fedora-38-displaylink-1.14.1-1.x86_64.rpm"
-DOWNLOAD_COMPLETE_NAME="$DOWNLOAD_PATH$DOWNLOAD_FILE_NAME"
+DOWNLOAD_COMPLETE_NAME="$DOWNLOAD_DIR/$DOWNLOAD_FILE_NAME"
 DOWNLOAD_URL="https://github.com/displaylink-rpm/displaylink-rpm/releases/download/v5.8.0/$DOWNLOAD_FILE_NAME"
 
 # Download displaylink driver (delete any previous downloads)
-rm "$DOWNLOAD_PATH$DOWNLOAD_FILE_NAME"
-download_rpm $DOWNLOAD_PATH $DOWNLOAD_URL
+rm "$DOWNLOAD_COMPLETE_NAME"
+wget -P $DOWNLOAD_DIR $DOWNLOAD_URL
 
 if [ -e "$DOWNLOAD_COMPLETE_NAME" ]; then
     # Install build files and display link driver

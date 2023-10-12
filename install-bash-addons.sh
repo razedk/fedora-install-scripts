@@ -6,6 +6,7 @@
 # NOTE: Script is made for Fedora and might not work on other distributions
 #
 
+source config/common-config.sh
 source util/print-util.sh
 source util/file-util.sh
 
@@ -13,18 +14,20 @@ source util/file-util.sh
 # F U N C T I O N S   S E C T I O N
 #
 
+INSTALL_PATH="install-bash-addons"
+
 
 command_exists () {
     command -v $1 >/dev/null 2>&1;
 }
 
 installDepend() {
-    ## Check for dependencies.
+    # Check for dependencies.
     print_info "Installing dependencies..."
     sudo dnf install -yq autojump bash bash-completion tar bat
 }
 
-installStarship(){
+installStarship() {
     if command_exists starship; then
         print_ok "Starship already installed"
         return
@@ -37,11 +40,7 @@ installStarship(){
 }
 
 installConfig() {
-    ## Create target directories if not already exist
-    INSTALL_PATH="install-bash-addons"
-    BASHRC_DIR="${HOME}/.bashrc.d"
-    CONFIG_DIR="${HOME}/.config/"
-    
+    # Create target directories if not already exist
     file_util_create_dir ${BASHRC_DIR}
     file_util_create_dir ${CONFIG_DIR}
    
@@ -51,8 +50,8 @@ installConfig() {
 }
 
 installNerdFonts() {
-	FONT_SOURCE_DIR="${HOME}/pCloudDrive/Backup/Linux/fonts"
-	FONT_TARGET_DIR="${HOME}/.local/share/fonts"
+	FONT_SOURCE_DIR="${INSTALL_PATH}/fonts"
+	FONT_TARGET_DIR="${LOCAL_SHARE_DIR}/fonts"
 	FILE_EXT=".zip"
 
     for file in $FONT_SOURCE_DIR/*$FILE_EXT ;
