@@ -56,7 +56,6 @@ if [[ $(is_already_installed) == "false" ]]; then
     systemctl daemon-reload
     print_ok "Network shares added to fstab"
 else
-    add_nas_credentials
     print_info "Network shares were already added, no changes done"
 fi
 
