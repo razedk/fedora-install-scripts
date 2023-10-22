@@ -30,7 +30,8 @@ install_dnf_packages() {
     				qemu \
     				virt-manager \
     				rapidsvn \
-    				git-credential-libsecret
+    				git-credential-libsecret \
+					tealdeer 
     				
     print_info "Finished installing DNF packages"
 }
@@ -64,6 +65,14 @@ install_flatpak_packages() {
 				com.visualstudio.code
 }
 
+install_gnome_extensions() {
+    print_info "Installing gnome extensions"
+    gnome-extensions install -f 	gnome-tweaks \
+    				dconf-editor \
+    				git-credential-libsecret
+    				
+    print_info "Finished installing gnome extensions"
+}
 
 
 #
