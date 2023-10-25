@@ -50,19 +50,25 @@ installConfig() {
 }
 
 installNerdFonts() {
-	FONT_SOURCE_DIR="${INSTALL_PATH}/fonts"
-	FONT_TARGET_DIR="${LOCAL_SHARE_DIR}/fonts"
-	FILE_EXT=".zip"
+    FONT_SOURCE_DIR="${INSTALL_PATH}/fonts"
+    FONT_TARGET_DIR="${LOCAL_SHARE_DIR}/fonts"
+    FILE_EXT=".zip"
 
     for file in $FONT_SOURCE_DIR/*$FILE_EXT ;
     do
-		font_folder_name=$(basename $file $FILE_EXT)
-		print_info "Path=${file}, FontFolder=${font_folder_name}"
-  	    file_util_delete_create_dir ${FONT_TARGET_DIR}/${font_folder_name}
-		unzip -d ${FONT_TARGET_DIR}/${font_folder_name} $file
+        font_folder_name=$(basename $file $FILE_EXT)
+	print_info "Path=${file}, FontFolder=${font_folder_name}"
+  	file_util_delete_create_dir ${FONT_TARGET_DIR}/${font_folder_name}
+	unzip -d ${FONT_TARGET_DIR}/${font_folder_name} $file
     done
 	
-	fc-cache -fv
+    fc-cache -fv
+}
+
+configNerdFont() {
+    defaultProfile=$(gsettings get org.gnome.Terminal.ProfilesList default | cut -d "'" -f 2) 
+    echo "Default=<$defaultProfile>"
+    dconf write /org/gnome/terminal/legacy/profiles:/:$defaultProfile/font "'FiraCode Nerd Font 12'"
 }
 
 #
@@ -73,6 +79,7 @@ installDepend
 installStarship
 installConfig
 installNerdFonts
+configNerdFont
 
 print_ok "Done!\nrestart your shell to see the changes."
 
