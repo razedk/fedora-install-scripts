@@ -31,7 +31,8 @@ install_dnf_packages() {
     				virt-manager \
     				rapidsvn \
     				git-credential-libsecret \
-					tealdeer 
+    				wl-clipboard \
+				tealdeer 
     				
     print_info "Finished installing DNF packages"
 }
